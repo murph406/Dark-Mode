@@ -3,20 +3,12 @@ import { StyleSheet, Text, View, TouchableOpacity, Animated, ScrollView } from '
 import ScrollableTabView from 'react-native-scrollable-tab-view';
 import TabBar from 'react-native-underline-tabbar';
 import { connect } from 'react-redux';
+
 import SettingsScreen from '../screens/SettingsScreen';
+import TrendingScreen from '../screens/TrendingScreen';
+import { PRIMARY } from '../theme/colors';
 
-import { PRIMARY } from '../constants/colors';
 
-const Page = ({ label, text = '' }) => (
-    <ScrollView style={styles.container}>
-        <Text style={styles.welcome}>
-            {label}
-        </Text>
-        <Text style={styles.instructions}>
-            {text}
-        </Text>
-    </ScrollView>
-);
 
 const Tab = ({ tab, page, isTabActive, onPressHandler, onTabLayout, styles }) => {
     const { label } = tab;
@@ -74,16 +66,17 @@ class HomeScreen extends Component {
     }));
 
     componentDidMount() {
+        console.log(this.props.theme)
     }
     render() {
         let theme = this.props.theme;
         return (
-            <View style={{ backgroundColor: theme.background ,paddingTop: 20, flex: 1 }}>
+            <View style={{ backgroundColor: theme.background, paddingTop: 20, flex: 1 }}>
                 <ScrollableTabView
                     renderTabBar={() => (
                         <TabBar
                             underlineColor={PRIMARY}
-                            tabBarStyle={{ backgroundColor: theme.background, borderTopColor: theme.background, borderTopWidth: 1 }}
+                            tabBarStyle={{ backgroundColor: theme.background }}
                             renderTab={(tab, page, isTabActive, onPressHandler, onTabLayout) => (
                                 <Tab
                                     key={page}
@@ -99,8 +92,8 @@ class HomeScreen extends Component {
                     )}
                     onScroll={(x) => this._scrollX.setValue(x)}
                 >
-                    <Page tabLabel={{ label: "Hot", }} label="Page #1 Hot" text="You can pass your own views to TabBar!" />
-                    <Page tabLabel={{ label: "Trending", }} label="Page #2 Trending" text="Yehoo!!!" />
+                    <TrendingScreen tabLabel={{ label: "Hot", }} text="Go toggle Dark Theme" />
+                    <TrendingScreen tabLabel={{ label: "Trending", }} text="Its Dope" />
                     <SettingsScreen tabLabel={{ label: "Settings", }} />
                 </ScrollableTabView>
             </View>
@@ -116,7 +109,7 @@ const styles = StyleSheet.create({
     },
     instructions: {
         textAlign: 'center',
-        color: '#333333',
+        // color: this.props.theme.textColor,
         marginBottom: 5,
         fontSize: 28,
     },
@@ -124,8 +117,8 @@ const styles = StyleSheet.create({
 
 var mapStateToProps = state => {
     return {
-      theme: state.theme.theme,
+        theme: state.theme.theme,
     }
-  }
+}
 
 export default connect(mapStateToProps)(HomeScreen);

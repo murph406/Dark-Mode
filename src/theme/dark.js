@@ -5,5 +5,6 @@ import { DARK } from './colors'
 export default {
     ...base,
     background: DARK,
+    textColor: 'white',
     type: "dark"
 }

@@ -1,6 +1,6 @@
 import * as ThemeActionTypes from '../action-types/theme-action-types';
-import light from '../constants/light';
-import dark from '../constants/dark';
+import light from '../theme/light';
+import dark from '../theme/dark';
 
 const initialState = {
    theme: dark
@@ -22,6 +22,3 @@ export default function theme(state = initialState, action) {
             return state;
     }
 }
-
-
-// https://blog.producthunt.com/product-hunt-mobile-theme-with-redux-in-react-native-5d49f70ffdf2
